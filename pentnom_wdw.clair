@@ -1,0 +1,519 @@
+# Source: pentnom.wdw
+# Traitement (FR): 14/11/2025 10:11:14
+# Processing (EN): 2025-11-14 10:11:14
+# Anomalies détectées: 0
+info :
+ name : pentnom
+ major_version : 30
+ minor_version : 0
+ type : 2
+ description : Modification d'un en-tête de nomenclature
+ subtype : 0
+ options : 256
+window :
+ name : pentnom
+ identifier : 0x4018d61a15ca2572
+ properties : x : 33, y : 16, width : 507, height : 271, widthClient : 505, heightClient : 239
+ controls :
+  -
+    name : IMAGE1__1
+    identifier : 0x4018d61a37fa2586
+    properties : x : 3, y : 42, width : 496, height : 141, anchor : 8, tab_stop : 0, take_focus : 0, accelerator_key : 65535
+    type : 8 (Image)
+    code_elements :
+     type_code : 8
+     p_codes :
+  -
+    name : DAT_CREA
+    identifier : 0x4018d61a235f2590
+    properties : x : 6, y : 189, width : 135, height : 21, state : 1, anchor : 1, tab_stop : 0, take_focus : 0, accelerator_key : 65535, tab_order : 14
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+  -
+    name : DAT_MODI
+    identifier : 0x4018d61a02032590
+    properties : x : 337, y : 189, width : 159, height : 21, state : 1, anchor : 5, tab_stop : 0, take_focus : 0, accelerator_key : 65535, tab_order : 15
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+  -
+    name : LIB_ART
+    identifier : 0x4018d61a49b22590
+    properties : x : 227, y : 70, width : 256, height : 21, state : 1, tab_stop : 0, take_focus : 0, accelerator_key : 65535, tab_order : 12
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+  -
+    name : LIB_ART2
+    identifier : 0x4018d61a1dbe259a
+    properties : x : 227, y : 89, width : 256, height : 21, state : 1, tab_stop : 0, take_focus : 0, accelerator_key : 65535, tab_order : 13
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+  -
+    name : COD_ART
+    identifier : 0x4018d61a6b04259a
+    properties : x : 11, y : 70, width : 178, height : 21, accelerator_key : 65535, tab_order : 1
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         si cod_art <> "" alors
+            si pas ff_sellibelle ("cod_art")
+         	  ToastAffiche("Article inexistant.")
+         	  reprisesaisie(cod_art)
+            fin
+         fin
+        type : 16 (Sortie du champ)
+      -
+        code : |1+
+         gModif=vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : BART
+    identifier : 0x4018d61a08cb25a4
+    properties : x : 195, y : 73, width : 26, height : 16, tab_stop : 0, accelerator_key : 65535, tab_order : 9
+    type : 4 (Bouton)
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         Resultat est une chaine
+         Resultat=""
+         ouvre(pselart,Resultat,"")
+         SI Resultat<>"" ALORS
+         	cod_art=Resultat
+         	ff_sellibelle ("cod_art")
+         	gModif=vrai
+         FIN
+        type : 18 (Clic sur bouton, image,etc)
+  -
+    name : IND_NOM
+    identifier : 0x4018d61a166025ae
+    properties : x : 11, y : 89, width : 96, height : 21, accelerator_key : 65535, tab_order : 2
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         gModif=Vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : ECOD_NOM
+    identifier : 0x4018d61a661325b8
+    properties : x : 11, y : 108, width : 96, height : 21, accelerator_key : 65535, tab_order : 3
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         gModif=Vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : LIB_NOM
+    identifier : 0x4018d61a461025b8
+    properties : x : 11, y : 51, width : 472, height : 21, accelerator_key : 65535, tab_order : 0
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         gModif=Vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : TYP_NOM
+    identifier : 0x4018d61a4f8825c2
+    properties : x : 11, y : 129, width : 474, height : 29, accelerator_key : 65535, tab_order : 4
+    options :
+     -
+       properties : {}
+       style : {}
+     -
+       properties : {}
+       style : {}
+     -
+       properties : {}
+       style : {}
+     -
+       properties : {}
+       style : {}
+     -
+       properties : {}
+    type : 6 (Sélecteur)
+    code_elements :
+     type_code : 6
+     p_codes :
+      -
+        code : |1+
+         gModif = vrai
+         Si AppMode <> 0 alors reprisesaisie()
+         Selon TYP_NOM
+         Cas 1
+         	ECOD_NOM=4
+         CAS 2
+         	ECOD_NOM=5
+         CAS 3
+         	ECOD_NOM=1
+         CAS 4
+         	ECOD_NOM=3
+         AUTRES CAS
+         	ECOD_NOM=6
+         Fin
+        type : 17 (Chaque modification du champ)
+  -
+    name : DAT_DEBUTI
+    identifier : 0x4018d61a0f0a25ea
+    properties : x : 11, y : 158, width : 189, height : 21, accelerator_key : 65535, tab_order : 5
+    calendar :
+     properties : {}
+     type : 47
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         gModif=Vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : DAT_FINUTI
+    identifier : 0x4018d61a330125f4
+    properties : x : 314, y : 158, width : 176, height : 21, accelerator_key : 65535, tab_order : 6
+    calendar :
+     properties : {}
+     type : 47
+    type : 2 (Champ de saisie)
+    code_elements :
+     type_code : 3
+     p_codes :
+      -
+        code : |1+
+         gModif=Vrai
+        type : 17 (Chaque modification du champ)
+  -
+    name : BOK
+    identifier : 0x4018d61a39fb25fe
+    properties : x : 34, width : 32, height : 32, accelerator_key : 65535, tab_order : 7
+    type : 4 (Bouton)
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         Si gModif alors
+         	SauveObjet()
+         	si gModif alors // Si erreur de saisie
+         		reprisesaisie(COD_ART)
+         	fin
+         FIN
+         ferme
+        type : 18 (Clic sur bouton, image,etc)
+  -
+    name : QUITTE
+    identifier : 0x4018d61a14352608
+    properties : width : 32, height : 32, take_focus : 0, accelerator_key : 65535, tab_order : 8
+    type : 4 (Bouton)
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1+
+         pf_TestSauve()
+         Ferme
+        type : 18 (Clic sur bouton, image,etc)
+  -
+    name : Forme1
+    identifier : 0x221b69ab74d43bff
+    properties : y : 36, width : 510, height : 2, anchor : 8, tab_stop : 0, take_focus : 0
+    type : 20 (Forme)
+    code_elements :
+     type_code : 32
+     p_codes : []
+  -
+    name : ModèleDeChamps1
+    identifier : 0x24805c3e17f7da6d
+    properties : x : 477, y : 2, width : 29, height : 30, anchor : 4, tab_order : 9
+    controls :
+     -
+       name : BTN_MODELE_AIDE
+       identifier : 0x24805c3e1808dabb
+       properties : x : -2, y : -2, width : 32, height : 32, context_menu : MCTX_BTNAIDE, tool_tip : Aide collaborative ou astuces à partager propre à chaque fenêtre, anchor : 4, tab_order : 0
+       type : 4 (Bouton)
+       code_elements :
+        type_code : 4
+        p_codes :
+         -
+           code : |1-
+            igenerique : Declare_Fen()
+           type : 14 (Initialisation du champ)
+         -
+           code : |1-
+            OuvreMenuContextuel(MCTX_BTNAIDE)
+           type : 18 (Clic sur bouton, image,etc)
+    type : 43 (Modèle de champ)
+    code_elements :
+     type_code : 93
+     p_codes :
+      -
+        code : |1-
+
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 14 (Initialisation du champ)
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 15 (Entrée dans le champ)
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 16 (Sortie du champ)
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 43 (Affectation de la propriété valeur)
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 42 (Récupération de la propriété valeur)
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 17 (Chaque modification du champ)
+     templates :
+      -
+        name : ModèleDeChamps1
+        identifier : 0x175c61bd41173148
+        code_elements :
+         type_code : 93
+         p_codes :
+          -
+            code : |1-
+
+          -
+            code : |1-
+            type : 14 (Initialisation du champ)
+ menu :
+  name : _Menu
+  identifier : 0x4018d61a03aa2572
+  properties : {}
+ popup_menus :
+  -
+    name : MCTX_BTNAIDE
+    identifier : 0x24a404394055e344
+    properties : {}
+    options :
+     -
+       name : Notedaide
+       identifier : 0x24a404394056e344
+       properties : {}
+       code_elements :
+        type_code : 26
+        p_codes :
+         -
+           code : |1+
+            sChaineAideDefaut est une chaine
+            QUAND EXCEPTION DANS
+            	sChaineAideDefaut = {FenEnExécution()+".AideIssueDeReQuete",indVariable}
+            FAIRE
+            	sChaineAideDefaut =""
+            FIN
+            ouvre(Fen_Notes_Fen,FenEnExécution(),{FenEnExécution(),indFenêtre}..Titre,sChaineAideDefaut)
+           type : 32 (Sélection option menu)
+     -
+       name : MCTX_opt_Traduc
+       identifier : 0x24a404394057e344
+       properties : {}
+       code_elements :
+        type_code : 26
+        p_codes :
+         -
+           code : |1+
+            SI FenEtat(FEN_Traduction_Element) = Inexistant ALORS
+            	Ouvresoeur(FEN_Traduction_Element,FenEnCours())
+            SINON
+            	Info("La fenêtre de traduction est déjà ouverte.","Veuillez enregistrer vos modifications et fermer la fenêtre.")
+            FIN
+           type : 32 (Sélection option menu)
+    code_elements :
+     type_code : 26
+     p_codes :
+      -
+        code : |1-
+         //Exécute le traitement défini dans le modèle
+         ExécuteAncêtre
+        type : 32 (Sélection option menu)
+     templates :
+      -
+        name : MCTX_BTNAIDE
+        identifier : 0x175c61bd41183148
+        code_elements :
+         type_code : 26
+         p_codes : []
+ languages :
+  - fr-FR
+  - en-GB
+  - es-ES
+  - de-DE
+  - it-IT
+ message_bar :
+  controls :
+   -
+     name : Case1
+     identifier : 0x4073be434a43498b
+     type : 62 (Case de barre de message)
+     code_elements :
+      type_code : 62
+      p_codes :
+ actionbar : {}
+ code_elements :
+  type_code : 1
+  p_codes :
+   -
+     code : |1-
+      procedure pentnom (AppMode,codart,codnom,indnom,pNoSeq=0)
+      GLOBAL
+      	gModif est un booleen
+      	gNomReq,glNomUpd est une chaine
+      	of_entlien est un BDAPX_entlien
+      	//
+   -
+     code : |1+
+      pf_init()
+     type : 34 (Fin d'initialisation de la fenêtre)
+  procedures :
+   -
+     name : SauveObjet
+     procedure_id : 4618676825207809585
+     type_code : 14
+     code : |1+
+      procedure SauveObjet()
+
+      pf_verifobligatoire ()
+      AVEC of_entlien
+      	.LIB_NOM=LIB_NOM
+      	.typ_nom=TYP_NOM
+      	.dat_debutil=DAT_DEBUTI
+      	.DAT_FINUTIl=DAT_FINUTI
+      	.dat_modi=DAT_MODI
+      	:f_update("id_lien_dt="+.id_lien_dt)
+      FIN
+      gModif=Faux
+      AppMode=1
+     type : 458752
+   -
+     name : ff_sellibelle
+     procedure_id : 4618676826888611407
+     type_code : 14
+     code : |1-
+      procedure ff_sellibelle (champ) : booléen
+      si champ = "cod_art" alors
+      	(LIB_ART,LIB_ART2)=OP_MEAPX:f_Libart(COD_ART)
+      	si SansEspace(LIB_ART)="" alors
+      	     cod_art=""
+               renvoyer faux
+            sinon
+      	     renvoyer vrai
+      	 FIN
+      fin
+     type : 458752
+   -
+     name : pf_TestSauve
+     procedure_id : 4618676825234613859
+     type_code : 14
+     code : |1-
+      procedure pf_TestSauve()
+      Si gModif alors
+        Si ouinon("Vous avez fait des modifications."+RC+...
+                "Voulez-vous les enregistrer ?") alors
+      	SauveObjet()
+        fin
+      FIN
+     type : 458752
+   -
+     name : pf_verifobligatoire
+     procedure_id : 4618676825643296365
+     type_code : 14
+     code : |1+
+      procédure pf_verifobligatoire()
+      si cod_art = "" alors
+         ToastAffiche("Article obligatoire.")
+         reprisesaisie(cod_art)
+      fin
+      si ECOD_NOM = "" ou ECOD_NOM = 0 alors
+         ToastAffiche("Numéro de nomenclature obligatoire.")
+         reprisesaisie(ECOD_NOM)
+      fin
+      si ind_nom = "" alors
+         ToastAffiche("Indice de nomenclature obligatoire.")
+         reprisesaisie(ind_nom)
+      fin
+      si lib_nom = "" alors
+         ToastAffiche("Libellé de nomenclature obligatoire.")
+         reprisesaisie(lib_nom)
+      fin
+      si typ_nom = "" alors
+         ToastAffiche("Type obligatoire.")
+         reprisesaisie(typ_nom)
+      fin
+     type : 458752
+   -
+     name : pf_init
+     procedure_id : 2261306539456268028
+     type_code : 14
+     code : |1-
+      PROCEDURE pf_init()
+      gModif=Faux
+      //	On ne vient qu'en mode modification
+      COD_ART = codart
+      COD_ART..Etat = Grisé
+      BART..Etat = Grisé
+      ECOD_NOM = codnom
+      ECOD_NOM..Etat = Grisé
+      IND_NOM = indnom
+      IND_NOM..Etat = Grisé
+      of_entlien : f_SelectUnSeul("cod_art ='"+codart+"' and cod_nom ="+codnom+" and ind_nom ="+indnom)
+      COD_ART=of_entlien.cod_art
+      LIB_NOM=of_entlien.lib_nom
+      TYP_NOM=of_entlien.TYP_NOM
+      si of_entlien.dat_debutil..PartieDate="19000101" alors
+      	DAT_DEBUTI=DateDuJour()
+      sinon
+      	DAT_DEBUTI=of_entlien.dat_debutil
+      FIN
+      SI of_entlien.dat_finutil..PartieDate="19000101" ALORS
+      	DAT_FINUTI="20990101"
+      sinon
+      	DAT_FINUTI=of_entlien.dat_finutil
+      fin
+      dat_crea=of_entlien.dat_crea
+      dat_modi=of_entlien.dat_modi
+      IND_NOM=of_entlien.IND_NOM
+      ECOD_NOM=of_entlien.cod_nom
+      ff_sellibelle ("cod_art")
+      pg_init_element_traduction()
+     type : 458752
+ code_parameters :
+resources :
+ string_res :
+  identifier : 0x4018d61a3e302572
+custom_note :
+rad :
